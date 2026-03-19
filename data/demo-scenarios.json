@@ -1,0 +1,400 @@
+{
+  "demoScenarios": [
+    {
+      "id": "scenario_001",
+      "name": "Normal Pregnancy - Week 28",
+      "description": "Healthy pregnancy trajectory with low risk",
+      "user": {
+        "email": "sarah.normal@demo.nurtura.app",
+        "password": "DemoPassword123!",
+        "name": "Sarah Johnson",
+        "role": "mother",
+        "language": "en",
+        "ageGroup": "25-35",
+        "medicalHistory": []
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2025-09-10",
+        "expectedDeliveryDate": "2026-06-15",
+        "currentWeek": 28,
+        "babySize": "Eggplant",
+        "riskFactors": [],
+        "status": "active"
+      },
+      "healthRecords": [
+        {
+          "recordDate": "2026-02-28",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 115,
+            "diastolicBP": 72,
+            "weight": 72,
+            "heartRate": 78
+          }
+        },
+        {
+          "recordDate": "2026-03-10",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 118,
+            "diastolicBP": 75,
+            "weight": 73,
+            "heartRate": 80
+          }
+        }
+      ],
+      "riskAssessment": {
+        "riskScore": 15,
+        "riskLevel": "low",
+        "conditions": []
+      },
+      "appointments": [
+        {
+          "appointmentDate": "2026-03-17",
+          "appointmentType": "prenatal_checkup",
+          "location": "City Hospital - OB Ward",
+          "providerName": "Dr. Patel",
+          "status": "scheduled"
+        },
+        {
+          "appointmentDate": "2026-04-07",
+          "appointmentType": "ultrasound",
+          "location": "City Hospital - Radiology",
+          "providerName": "Dr. Chen",
+          "status": "scheduled"
+        }
+      ],
+      "conversationHistory": [
+        {
+          "role": "user",
+          "content": "Any good nutrition tips for week 28?"
+        },
+        {
+          "role": "assistant",
+          "content": "At week 28, focus on iron-rich foods to support increased blood volume and prevent anemia. Good sources include leafy greens, lean meats, legumes, and fortified cereals. Pair them with vitamin C for better absorption. Well done on maintaining a healthy pregnancy journey!"
+        }
+      ]
+    },
+    {
+      "id": "scenario_002",
+      "name": "GDM Risk - Week 18",
+      "description": "Pregnancy with family history of gestational diabetes - moderate monitoring",
+      "user": {
+        "email": "priya.gdm@demo.nurtura.app",
+        "password": "DemoPassword123!",
+        "name": "Priya Sharma",
+        "role": "mother",
+        "language": "ta",
+        "ageGroup": "25-35",
+        "medicalHistory": ["family_history_gd"]
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2025-11-15",
+        "expectedDeliveryDate": "2026-08-18",
+        "currentWeek": 18,
+        "babySize": "Bell Pepper",
+        "riskFactors": ["family_history_gd"],
+        "status": "active"
+      },
+      "healthRecords": [
+        {
+          "recordDate": "2026-02-15",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 120,
+            "diastolicBP": 76,
+            "weight": 68,
+            "heartRate": 82
+          }
+        },
+        {
+          "recordDate": "2026-03-10",
+          "recordType": "lab",
+          "labs": {
+            "glucoseFasting": 95,
+            "glucoseRandom": 128,
+            "hemoglobin": 12.5
+          }
+        }
+      ],
+      "riskAssessment": {
+        "riskScore": 42,
+        "riskLevel": "moderate",
+        "conditions": [
+          {
+            "name": "gestational_diabetes",
+            "probability": 0.35,
+            "severity": "mild",
+            "recommendation": "Schedule glucose tolerance test. Monitor diet and exercise."
+          }
+        ]
+      },
+      "appointments": [
+        {
+          "appointmentDate": "2026-03-22",
+          "appointmentType": "lab_work",
+          "location": "City Hospital - Lab",
+          "providerName": "Lab Tech",
+          "status": "scheduled"
+        }
+      ],
+      "conversationHistory": [
+        {
+          "role": "user",
+          "content": "I have a family history of diabetes. Should I be worried?"
+        },
+        {
+          "role": "assistant",
+          "content": "Family history means you have a higher risk for gestational diabetes, but it's very manageable! Your doctor will likely recommend a glucose tolerance test around week 24-28. In the meantime, maintaining a balanced diet with complex carbs, regular physical activity, and staying hydrated can help. You're being proactive, and that's excellent!"
+        }
+      ]
+    },
+    {
+      "id": "scenario_003",
+      "name": "Preeclampsia Risk - Week 35 (URGENT)",
+      "description": "High-risk pregnancy with preeclampsia symptoms requiring immediate attention",
+      "user": {
+        "email": "maria.preeclampsia@demo.nurtura.app",
+        "password": "DemoPassword123!",
+        "name": "Maria Garcia",
+        "role": "mother",
+        "language": "es",
+        "ageGroup": "35-45",
+        "medicalHistory": ["hypertension", "previous_preeclampsia"]
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2025-09-18",
+        "expectedDeliveryDate": "2026-06-20",
+        "currentWeek": 35,
+        "babySize": "Honeydew",
+        "riskFactors": ["advanced_maternal_age", "hypertension", "previous_preeclampsia"],
+        "status": "active"
+      },
+      "healthRecords": [
+        {
+          "recordDate": "2026-02-20",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 135,
+            "diastolicBP": 88,
+            "weight": 80,
+            "heartRate": 92
+          }
+        },
+        {
+          "recordDate": "2026-03-05",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 148,
+            "diastolicBP": 95,
+            "weight": 82,
+            "heartRate": 96
+          }
+        },
+        {
+          "recordDate": "2026-03-10",
+          "recordType": "lab",
+          "labs": {
+            "proteinUrine": true
+          }
+        }
+      ],
+      "riskAssessment": {
+        "riskScore": 78,
+        "riskLevel": "high",
+        "conditions": [
+          {
+            "name": "preeclampsia",
+            "probability": 0.72,
+            "severity": "severe",
+            "recommendation": "URGENT: Contact doctor immediately. Consider hospital monitoring."
+          }
+        ]
+      },
+      "appointments": [
+        {
+          "appointmentDate": "2026-03-12",
+          "appointmentType": "prenatal_checkup",
+          "location": "Emergency OB - City Hospital",
+          "providerName": "Dr. Wilson",
+          "status": "scheduled"
+        }
+      ],
+      "conversationHistory": [
+        {
+          "role": "user",
+          "content": "I have a severe headache and my feet are swollen. Should I go to the hospital?"
+        },
+        {
+          "role": "assistant",
+          "content": "⚠️ URGENT: Severe headaches combined with significant swelling can be signs of preeclampsia, especially given your medical history. This requires immediate medical evaluation. Please call your doctor right now or go to the emergency room. Do not delay. Your safety and your baby's safety are our priority."
+        }
+      ]
+    },
+    {
+      "id": "scenario_004",
+      "name": "Postpartum Week 2 - Mental Health Screening",
+      "description": "Recent mother, postpartum depression screening, recovery tracking",
+      "user": {
+        "email": "emma.postpartum@demo.nurtura.app",
+        "password": "DemoPassword123!",
+        "name": "Emma Wilson",
+        "role": "mother",
+        "language": "en",
+        "ageGroup": "25-35",
+        "medicalHistory": []
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2025-12-01",
+        "expectedDeliveryDate": "2026-09-06",
+        "currentWeek": -2,
+        "status": "postpartum",
+        "postpartumWeek": 2,
+        "deliveryDate": "2026-02-25"
+      },
+      "healthRecords": [
+        {
+          "recordDate": "2026-02-25",
+          "recordType": "vitals",
+          "vitals": {
+            "systolicBP": 118,
+            "diastolicBP": 75,
+            "weight": 75
+          }
+        },
+        {
+          "recordDate": "2026-03-10",
+          "recordType": "symptom_log",
+          "symptoms": ["fatigue", "mood_swings", "mild_anxiety"]
+        }
+      ],
+      "riskAssessment": {
+        "riskScore": 38,
+        "riskLevel": "moderate",
+        "conditions": [
+          {
+            "name": "postpartum_depression_risk",
+            "probability": 0.25,
+            "severity": "mild",
+            "recommendation": "Continue mood monitoring. Schedule mental health check-in with OB-GYN."
+          }
+        ]
+      },
+      "appointments": [
+        {
+          "appointmentDate": "2026-03-25",
+          "appointmentType": "postpartum_6week",
+          "location": "City Hospital - OB Ward",
+          "providerName": "Dr. Patel",
+          "status": "scheduled"
+        }
+      ],
+      "conversationHistory": [
+        {
+          "role": "user",
+          "content": "I feel really exhausted and sometimes sad. Is this normal postpartum?"
+        },
+        {
+          "role": "assistant",
+          "content": "It's completely normal to feel tired after birth—your body is recovering from a major event. Some sadness in the first two weeks (baby blues) is common. However, if you're feeling persistently sad, hopeless, anxious, or having trouble bonding with baby, that's important to discuss with your doctor. These could be signs of postpartum depression, which is treatable. Please reach out to your healthcare provider."
+        }
+      ]
+    },
+    {
+      "id": "scenario_005",
+      "name": "Family Support Mode - Partner View",
+      "description": "Partner/family member access to shared pregnancy dashboard",
+      "user": {
+        "email": "james.partner@demo.nurtura.app",
+        "password": "DemoPassword123!",
+        "name": "James Thompson",
+        "role": "partner",
+        "language": "en"
+      },
+      "motherUser": {
+        "email": "sophia.partner@demo.nurtura.app",
+        "name": "Sophia Thompson"
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2025-10-20",
+        "expectedDeliveryDate": "2026-07-25",
+        "currentWeek": 24,
+        "babySize": "Corn Cob",
+        "riskFactors": [],
+        "status": "active"
+      },
+      "familyLink": {
+        "relationship": "partner",
+        "inviteStatus": "accepted",
+        "permissionsShared": ["view_dashboard", "view_appointments", "receive_alerts"],
+        "notificationLevel": "updates"
+      },
+      "sharedData": {
+        "currentWeek": 24,
+        "babySize": "Corn Cob",
+        "nextAppointment": {
+          "appointmentDate": "2026-03-18",
+          "appointmentType": "prenatal_checkup"
+        },
+        "partnerTips": [
+          "Accompany to appointments when possible—showing support strengthens the bond",
+          "Give gentle massages for back pain relief",
+          "Help with household tasks—pregnancy fatigue is real"
+        ]
+      }
+    }
+  ],
+  "healthKnowledgeBase": {
+    "conditions": [
+      {
+        "name": "Gestational Diabetes Mellitus (GDM)",
+        "simplifiedExplanation": "A type of diabetes that develops during pregnancy when your body has trouble controlling blood sugar levels.",
+        "symptoms": ["excessive thirst", "frequent urination", "fatigue"],
+        "whenToContact": "If you have excessive thirst, frequent urination, or unusual fatigue",
+        "safetyTips": [
+          "Eat small, frequent meals",
+          "Choose complex carbs over simple sugars",
+          "Exercise 30 minutes daily (or as approved by doctor)",
+          "Monitor blood glucose as recommended"
+        ]
+      },
+      {
+        "name": "Preeclampsia",
+        "simplifiedExplanation": "High blood pressure during pregnancy that can affect mother and baby health if not managed.",
+        "symptoms": ["severe headache", "blurred vision", "severe swelling", "upper abdominal pain", "reduced urine output"],
+        "whenToContact": "IMMEDIATELY if you experience severe headache, vision changes, or severe swelling",
+        "safetyTips": [
+          "Monitor blood pressure regularly",
+          "Reduce sodium intake",
+          "Stay hydrated",
+          "Rest on your left side",
+          "Attend all prenatal appointments"
+        ]
+      },
+      {
+        "name": "Postpartum Depression",
+        "simplifiedExplanation": "A serious but treatable medical condition affecting mood after childbirth.",
+        "symptoms": ["persistent sadness", "loss of interest", "difficulty bonding", "sleep problems", "anxiety"],
+        "whenToContact": "If you feel persistently sad, hopeless, or unable to care for your baby",
+        "safetyTips": [
+          "Talk to your doctor or therapist",
+          "Ask for support from family and friends",
+          "Join support groups for new mothers",
+          "Be gentle with yourself—recovery takes time"
+        ]
+      },
+      {
+        "name": "Morning Sickness",
+        "simplifiedExplanation": "Nausea and vomiting in early pregnancy, often triggered by hormonal changes.",
+        "symptoms": ["nausea", "vomiting", "food aversions", "fatigue"],
+        "whenToContact": "If you can't keep any food or liquids down, or if vomiting is severe and frequent",
+        "safetyTips": [
+          "Eat small, frequent meals",
+          "Ginger tea or candies may help",
+          "Get fresh air and stay hydrated",
+          "Vitamin B6 supplements (with doctor approval)"
+        ]
+      }
+    ]
+  }
+}

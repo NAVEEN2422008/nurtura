@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: nurtura_mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - nurtura_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: nurtura_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nurtura_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nurtura_backend
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: mongodb://root:password@mongo:27017/nurtura?authSource=admin
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_jwt_secret
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: gpt-4
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+      - redis
+    volumes:
+      - ./backend/src:/app/src
+    networks:
+      - nurtura_network
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: nurtura_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - nurtura_network
+    command: npm run dev
+
+volumes:
+  mongo_data:
+  redis_data:
+
+networks:
+  nurtura_network:
+    driver: bridge

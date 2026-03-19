@@ -1,0 +1,56 @@
+{
+  "demoScenarios": [
+    {
+      "name": "Demo Mother - 24 weeks",
+      "user": {
+        "email": "demo@example.com",
+        "password": "$2a$10$LwQRPVZbQ1yN7J8D8G1QPOU3q4z0wY8qZ6gKx7u3d2v4n5m6p7o8r",
+        "name": "Sarah Johnson",
+        "role": "mother",
+        "language": "en",
+        "ageGroup": "25-34",
+        "medicalHistory": ["gestational_diabetes"]
+      },
+      "pregnancy": {
+        "lastMenstrualPeriod": "2024-01-15",
+        "expectedDeliveryDate": "2024-10-22",
+        "currentWeek": 24,
+        "trimester": 3,
+        "babySize": "grapefruit",
+        "status": "active",
+        "riskFactors": ["gdM"]
+      },
+      "healthRecords": [
+        {
+          "recordDate": "2024-07-15",
+          "recordType": "vitals",
+          "vitals": {
+            "bloodPressure": "118/76",
+            "heartRate": 82,
+            "weight": 165
+          },
+          "symptoms": ["mild_backache"]
+        }
+      ],
+      "appointments": [
+        {
+          "appointmentDate": "2024-07-20",
+          "appointmentType": "anatomy_scan",
+          "location": "City Hospital",
+          "providerName": "Dr. Emily Chen",
+          "status": "scheduled"
+        }
+      ],
+      "conversationHistory": [
+        {
+          "role": "user",
+          "content": "What should I expect at 24 weeks?"
+        },
+        {
+          "role": "assistant",
+          "content": "At 24 weeks, your baby is about grapefruit size..."
+        }
+      ]
+    }
+  ]
+}

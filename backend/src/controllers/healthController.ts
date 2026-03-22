@@ -68,7 +68,7 @@ export const getHealthRecords = async (req: Request, res: Response) => {
     const { pregnancyId } = req.params
     const { recordType, limit = 20, days = 30 } = req.query
 
-    const query: any = { pregnancyId }
+    const query: Record<string, unknown> = { pregnancyId }
     if (recordType) query.recordType = recordType
 
     const startDate = new Date()

@@ -26,9 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(503).json({ success: false, error: 'Database service unavailable - pregnancy data stored in backend only' })
   }
   const userId = session.user.id
-  // #region agent log
-  fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H2',location:'src/pages/api/pregnancy.ts:handler',message:'Pregnancy API request',data:{method:req.method,hasUserId:!!userId,hasSupabaseEnv:!!process.env.SUPABASE_URL&&!!process.env.SUPABASE_SERVICE_ROLE_KEY},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion agent log
 
   if (req.method === 'POST') {
     const parsed = createSchema.safeParse(req.body)
@@ -98,4 +95,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   return res.status(405).json({ success: false, error: 'Method not allowed' })
 }
-

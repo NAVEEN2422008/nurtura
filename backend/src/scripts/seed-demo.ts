@@ -9,6 +9,45 @@ import demoData from '../../data/demo-scenarios.json'
 
 dotenv.config()
 
+type DemoScenario = {
+  name: string
+  user: {
+    email: string
+    password: string
+    name?: string
+    role: string
+    language: string
+    ageGroup?: string
+    medicalHistory?: string[]
+  }
+  pregnancy: {
+    lastMenstrualPeriod: string
+    expectedDeliveryDate: string
+    currentWeek: number
+    babySize?: string
+    status?: string
+    riskFactors?: string[]
+  }
+  healthRecords?: Array<{
+    recordDate: string
+    recordType: string
+    vitals?: Record<string, unknown>
+    labs?: Record<string, unknown>
+    symptoms?: Array<Record<string, unknown>>
+  }>
+  appointments?: Array<{
+    appointmentDate: string
+    appointmentType: string
+    location?: string
+    providerName?: string
+    status?: string
+  }>
+  conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>
+  riskAssessment?: { riskLevel?: string }
+}
+
+type DemoPayload = { demoScenarios: DemoScenario[] }
+
 const connectDB = async () => {
   try {
     const dbUrl = process.env.DATABASE_URL || 'mongodb://root:password@localhost:27017/nurtura?authSource=admin'
@@ -31,14 +70,15 @@ const seedDatabase = async () => {
     await Conversation.deleteMany({})
 
     // Seed each scenario
-    for (const scenario of demoData.demoScenarios) {
+    const demoScenarios = (demoData as unknown as DemoPayload).demoScenarios
+    for (const scenario of demoScenarios) {
       console.log(`\n📝 Seeding scenario: ${scenario.name}`)
 
       // Create user
       const user = await User.create({
         email: scenario.user.email,
         password: scenario.user.password,
-        name: scenario.user.name,
+        name: scenario.user.name || scenario.user.email.split('@')[0],
         role: scenario.user.role,
         language: scenario.user.language,
         ageGroup: scenario.user.ageGroup,
@@ -47,7 +87,7 @@ const seedDatabase = async () => {
       console.log(`  ✓ User created: ${user.name}`)
 
       // Create pregnancy
-      const pregnancy = await Pregnancy.create({
+      const pregnancyData = {
         userId: user._id,
         lastMenstrualPeriod: new Date(scenario.pregnancy.lastMenstrualPeriod),
         expectedDeliveryDate: new Date(scenario.pregnancy.expectedDeliveryDate),
@@ -56,8 +96,9 @@ const seedDatabase = async () => {
         babySize: scenario.pregnancy.babySize,
         status: scenario.pregnancy.status,
         riskFactors: scenario.pregnancy.riskFactors || [],
-        postpartumWeek: scenario.pregnancy.postpartumWeek,
-      })
+      }
+// if ((scenario.pregnancy as any).postpartumWeek !== undefined) pregnancyData.postpartumWeek = (scenario.pregnancy as any).postpartumWeek
+      const pregnancy = await Pregnancy.create(pregnancyData)
       console.log(`  ✓ Pregnancy created: Week ${pregnancy.currentWeek}`)
 
       // Create health records
@@ -69,7 +110,7 @@ const seedDatabase = async () => {
             recordType: record.recordType,
             dataSource: 'user_entry',
             vitals: record.vitals,
-            labs: record.labs,
+            labs: record.labs || {},
             symptoms: record.symptoms,
           })
         }
@@ -91,53 +132,38 @@ const seedDatabase = async () => {
         console.log(`  ✓ Appointments created: ${scenario.appointments.length}`)
       }
 
-      // Create conversation with history
-      if (scenario.conversationHistory && scenario.conversationHistory.length > 0) {
-        const conversation = await Conversation.create({
-          pregnancyId: pregnancy._id,
-          userId: user._id,
-          messages: scenario.conversationHistory.map((msg) => ({
-            role: msg.role as 'user' | 'assistant',
-            content: msg.content,
-            timestamp: new Date(),
-          })),
-          contextSnapshot: {
-            pregnancyWeek: pregnancy.currentWeek,
-            trimester: pregnancy.trimester,
-            recentSymptoms: [],
-            riskLevel: scenario.riskAssessment?.riskLevel || 'unknown',
-          },
-        })
-        console.log(`  ✓ Conversation created with ${scenario.conversationHistory.length} messages`)
-      }
+      // Create conversation
+      const riskLevel = scenario.riskAssessment ? scenario.riskAssessment.riskLevel || 'unknown' : 'unknown'
+      await Conversation.create({
+        pregnancyId: pregnancy._id,
+        userId: user._id,
+        messages: (scenario.conversationHistory || []).map((msg) => ({
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content,
+          timestamp: new Date(),
+        })),
+        contextSnapshot: {
+          pregnancyWeek: pregnancy.currentWeek,
+          trimester: pregnancy.trimester,
+          recentSymptoms: [],
+          riskLevel,
+        },
+      })
+      console.log(`  ✓ Conversation created with ${(scenario.conversationHistory || []).length} messages`)
 
       console.log(`  ✅ Scenario complete!`)
     }
 
-    console.log('\n✨ Database seeding complete!')
-    console.log(`\n📊 Summary:`)
-    const userCount = await User.countDocuments()
-    const pregnancyCount = await Pregnancy.countDocuments()
-    const recordCount = await HealthRecord.countDocuments()
-    const appointmentCount = await Appointment.countDocuments()
-    console.log(`  Users: ${userCount}`)
-    console.log(`  Pregnancies: ${pregnancyCount}`)
-    console.log(`  Health Records: ${recordCount}`)
-    console.log(`  Appointments: ${appointmentCount}`)
-
-    console.log(`\n🧪 Test Accounts (password: DemoPassword123!)`)
-    const users = await User.find({}, { email: 1 }).lean()
-    users.forEach((u) => {
-      console.log(`  - ${u.email}`)
-    })
+    console.log('\n✨ Database seeded!')
+    console.log(`Test accounts: password DemoPassword123!`)
   } catch (error) {
     console.error('❌ Seeding error:', error)
     process.exit(1)
   } finally {
     await mongoose.connection.close()
-    console.log('\n✅ Database connection closed')
+    console.log('\n✅ DB closed')
   }
 }
 
-// Run seeding
-connectDB().then(() => seedDatabase())
+connectDB().then(seedDatabase)
+

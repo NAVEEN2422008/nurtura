@@ -35,7 +35,7 @@ export const getAppointments = async (req: Request, res: Response) => {
     const { pregnancyId } = req.params
     const { status, days = 180 } = req.query
 
-    const query: any = { pregnancyId }
+    const query: Record<string, unknown> = { pregnancyId }
     if (status) query.status = status
 
     const startDate = new Date()

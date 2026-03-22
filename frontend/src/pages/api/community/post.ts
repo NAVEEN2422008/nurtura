@@ -29,6 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!parsed.success) return res.status(400).json({ success: false, error: 'Invalid input' })
 
   const supabase = getSupabaseAdmin()
+  if (!supabase) {
+    return res.status(200).json({ success: true, data: { id: 'demo_' + Date.now(), group_name: parsed.data.group, moderation_status: 'approved' } })
+  }
   const userId = session.user.id
   const { group, title, body, anonymous } = parsed.data
 
@@ -51,4 +54,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (error) return res.status(500).json({ success: false, error: error.message })
   return res.status(200).json({ success: true, data })
 }
-

@@ -7,7 +7,7 @@ export interface INotification extends Document {
   title: string
   message: string
   actionUrl?: string
-  data?: Record<string, any>
+  data?: Record<string, unknown>
   status: 'pending' | 'sent' | 'failed' | 'read'
   deliveryChannels: string[]
   createdAt: Date

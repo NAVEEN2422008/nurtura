@@ -9,10 +9,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!session) return
 
   const supabase = getSupabaseAdmin()
+  if (!supabase) {
+    return res.status(200).json({ success: true, data: { pregnancy: null, analytics: { recentSymptomLogs: [], recentMoodLogs: [] } } })
+  }
   const userId = session.user.id
-  // #region agent log
-  fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H3',location:'src/pages/api/dashboard.ts:handler',message:'Dashboard API start',data:{hasUserId:!!userId,hasSupabaseEnv:!!process.env.SUPABASE_URL&&!!process.env.SUPABASE_SERVICE_ROLE_KEY},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion agent log
 
   const { data: pregnancy, error: pErr } = await supabase
     .from('pregnancy_profiles')
@@ -43,9 +43,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (sErr) return res.status(500).json({ success: false, error: sErr.message })
   if (mErr) return res.status(500).json({ success: false, error: mErr.message })
 
-  // #region agent log
-  fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H3',location:'src/pages/api/dashboard.ts:handler',message:'Dashboard API success',data:{hasPregnancy:!!pregnancyId,symptomCount:(symptomLogs??[]).length,moodCount:(moodLogs??[]).length},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion agent log
 
   return res.status(200).json({
     success: true,
@@ -77,4 +74,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   })
 }
-

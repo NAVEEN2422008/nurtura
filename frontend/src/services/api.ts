@@ -12,7 +12,7 @@ class ApiClient {
   // Pregnancy endpoints
 async createPregnancy(data: { lmp: string; edd: string; riskFactors?: string[]; chronicConditions?: string[] }): Promise<any> {
     // Proxy to backend pregnancy endpoint (Supabase disabled)
-    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/pregnancies`, {
+    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/api/pregnancies`, {
       method: 'POST',
       body: JSON.stringify({
         lmp: data.lmp,
@@ -25,20 +25,22 @@ async createPregnancy(data: { lmp: string; edd: string; riskFactors?: string[]; 
 
 async getPregnancy(): Promise<any> {
     // Proxy to backend
-    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/pregnancies`)
+    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/api/pregnancies`)
   }
 
 async getDashboard(): Promise<any> {
     // Proxy to backend
-    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/dashboard`)
+    return json(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/api/dashboard`)
   }
 
   // Pregnancy endpoints
   // Chat endpoints
-  async sendMessage(pregnancyId: string, message: string): Promise<any> {
+  async sendMessage(pregnancyId: string, message: string, language?: string): Promise<any> {
+    const body: { pregnancyId: string; message: string; language?: string } = { pregnancyId, message };
+    if (language) body.language = language;
     return json('/api/ai/companion', {
       method: 'POST',
-      body: JSON.stringify({ pregnancyId, message }),
+      body: JSON.stringify(body),
     })
   }
 
@@ -46,12 +48,22 @@ async getDashboard(): Promise<any> {
     return json(`/api/ai/history?pregnancyId=${encodeURIComponent(pregnancyId)}&limit=${limit}&offset=${offset}`)
   }
 
-  async logVitals(pregnancyId: string, vitals: any): Promise<any> {
-    // v1: vitals are stored as wearable/manual metrics later; keep API placeholder
-    return json('/api/wearables/manual', { method: 'POST', body: JSON.stringify({ pregnancyId, ...vitals }) })
+async logVitals(pregnancyId: string, vitals: any): Promise<any> {
+    // Mock validation - skip empty strings
+    const cleanVitals = {
+      pregnancyId,
+      ...(parseInt(vitals.systolicBP) > 0 && { systolicBP: parseInt(vitals.systolicBP) }),
+      ...(parseInt(vitals.diastolicBP) > 0 && { diastolicBP: parseInt(vitals.diastolicBP) }),
+      ...(parseFloat(vitals.weight) > 0 && { weight: parseFloat(vitals.weight) }),
+      ...(parseInt(vitals.heartRate) > 0 && { heartRate: parseInt(vitals.heartRate) }),
+      ...(vitals.symptoms && vitals.symptoms.length > 0 && { symptoms: vitals.symptoms }),
+    }
+    if (Object.keys(cleanVitals).length === 1) throw new Error('No valid vitals provided')
+    return json('/api/wearables/manual', { method: 'POST', body: JSON.stringify(cleanVitals) })
   }
 
-  async logSymptoms(pregnancyId: string, symptoms: Array<{name: string; severity: 'mild' | 'moderate' | 'severe'; notes?: string}>): Promise<any> {
+async logSymptoms(pregnancyId: string, symptoms: Array<{name: string; severity: 'mild' | 'moderate' | 'severe'; notes?: string}>): Promise<any> {
+    if (!symptoms || symptoms.length === 0) throw new Error('No symptoms provided')
     return json('/api/symptom-log', { method: 'POST', body: JSON.stringify({ pregnancyId, symptoms }) })
   }
 
@@ -59,8 +71,9 @@ async getDashboard(): Promise<any> {
     return json(`/api/symptom-log?limit=10&pregnancyId=${encodeURIComponent(pregnancyId)}`)
   }
 
-  async logMood(input: { pregnancyId?: string; mood: 'happy' | 'okay' | 'neutral' | 'sad' | 'very_sad'; notes?: string }): Promise<any> {
-    return json('/api/mood-log', { method: 'POST', body: JSON.stringify(input) })
+async logMood(input: { pregnancyId?: string; mood: 'happy' | 'okay' | 'neutral' | 'sad' | 'very_sad'; notes?: string }): Promise<any> {
+    const { pregnancyId, mood, notes } = input
+    return json('/api/mood-log', { method: 'POST', body: JSON.stringify({ pregnancyId, mood, notes }) })
   }
 }
 

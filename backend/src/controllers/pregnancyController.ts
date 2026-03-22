@@ -1,11 +1,9 @@
 import { Request, Response } from 'express'
-import mongoose from 'mongoose'
-import { Pregnancy } from '@/models/Pregnancy'
 
 export const createPregnancy = async (req: Request, res: Response) => {
   console.log('📝 createPregnancy called with:', req.body)
   try {
-    const { lastMenstrualPeriod, expectedDeliveryDate, riskFactors = [], chronicConditions = [] } = req.body
+    const { expectedDeliveryDate, riskFactors = [], chronicConditions = [] } = req.body
 
     // Always return demo data for dev (no DB dependency)
     const demoData = {

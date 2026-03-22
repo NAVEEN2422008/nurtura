@@ -22,6 +22,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
+    "tsBuildInfoFile": ".next/cache/tsconfig.tsbuildinfo",
     "paths": {
       "@/*": [
         "src/*"
@@ -34,11 +35,12 @@
   "include": [
     "src"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
+  // "references": [
+    // {
+    //   "path": "./tsconfig.node.json"
+    // }
+    // ],
+
   "exclude": [
     "node_modules"
   ]

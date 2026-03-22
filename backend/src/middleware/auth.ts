@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-declare global {
-  namespace Express {
-    interface Request {
-      userId?: string
-      user?: any
-    }
+declare module 'express-serve-static-core' {
+  interface Request {
+    userId?: string
+    user?: Record<string, unknown>
   }
 }
 
@@ -31,7 +29,8 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   }
 }
 
-export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+export const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  void _next
   console.error(err)
   res.status(500).json({
     success: false,

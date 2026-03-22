@@ -1,40 +1,69 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('🤖 AI Companion called:', req.body)
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'
 
+const SAFE_FALLBACK: Record<string, { empathy: string; explanation: string; action: string; disclaimer: string }> = {
+  en: {
+    empathy: 'I hear you, and I am here to help.',
+    explanation: 'I can provide general guidance, but a clinician can best address your specific situation.',
+    action: 'Please consult your healthcare provider for personalized advice.',
+    disclaimer: 'This is decision support only - not a diagnosis. Please consult your healthcare provider.',
+  },
+  hi: {
+    empathy: 'मैं समझ सकती हूँ। मैं आपकी मदद के लिए यहाँ हूँ।',
+    explanation: 'मैं सामान्य जानकारी दे सकती हूँ, लेकिन आपकी स्थिति के लिए डॉक्टर सबसे उपयुक्त हैं।',
+    action: 'कृपया व्यक्तिगत सलाह के लिए अपने स्वास्थ्य प्रदाता से संपर्क करें।',
+    disclaimer: 'यह निर्णय समर्थन है, चिकित्सा निदान नहीं। कृपया अपने स्वास्थ्य प्रदाता से परामर्श करें।',
+  },
+  ta: {
+    empathy: 'உங்கள் கவலை புரிகிறது. நான் உதவ இங்கே இருக்கிறேன்.',
+    explanation: 'நான் பொது வழிகாட்டுதலை வழங்க முடியும்; உங்கள் சூழ்நிலைக்கு மருத்துவர் சிறந்தவர்.',
+    action: 'தனிப்பட்ட ஆலோசனைக்காக உங்கள் சுகாதார வழங்குநரை அணுகவும்.',
+    disclaimer: 'இது முடிவெடுக்கும் ஆதரவு மட்டுமே - மருத்துவ நோயறிதல் அல்ல. உங்கள் சுகாதார வழங்குநரை அணுகவும்.',
+  },
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' })
   }
 
-  const { pregnancyId, message } = req.body
+  const { pregnancyId, message, language } = req.body || {}
+  const normalizedMessage = typeof message === 'string' ? message.trim() : ''
+  const lang = typeof language === 'string' ? language : 'en'
+  const safe = SAFE_FALLBACK[lang] || SAFE_FALLBACK.en
 
-  if (!message || typeof message !== 'string') {
-    return res.status(400).json({ success: false, error: 'Message is required' })
+  if (!pregnancyId || typeof pregnancyId !== 'string' || !normalizedMessage) {
+    return res.status(400).json({ success: false, error: 'Invalid input' })
   }
 
-  // Demo AI responses
-  const demoResponses = {
-    default: "Thanks for sharing! I'm here to support you through your pregnancy journey. What can I help with today? (Demo mode - local AI ready for Ollama integration)",
-    symptoms: "I'm sorry you're experiencing symptoms. Track them in your Symptom Log. Watch for severe symptoms and contact your doctor. Want guidance on rest or hydration?",
-    baby: "Your baby is growing beautifully! At your current week, baby development is on track. Would you like week-by-week updates?",
-    emergency: "⚠️ Please seek immediate medical attention. Call emergency services if you experience bleeding, severe pain, vision changes, or swelling.",
+  try {
+    const backendRes = await fetch(`${BACKEND_URL}/api/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pregnancyId, message: normalizedMessage, language: lang }),
+    })
+
+    if (!backendRes.ok) {
+      const errorData = await backendRes.json()
+      return res.status(backendRes.status).json({ success: false, error: errorData.error || 'Backend error' })
+    }
+
+    const data = await backendRes.json()
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(200).json({
+      success: true,
+      data: {
+        empathy: safe.empathy,
+        explanation: safe.explanation,
+        action: safe.action,
+        disclaimer: safe.disclaimer,
+        confidence: 0.55,
+        fallback: true,
+      },
+    })
   }
-
-  const lowerMsg = message.toLowerCase()
-  let response = demoResponses.default
-
-  if (lowerMsg.includes('pain') || lowerMsg.includes('symptom')) response = demoResponses.symptoms
-  if (lowerMsg.includes('baby') || lowerMsg.includes('size')) response = demoResponses.baby
-  if (lowerMsg.includes('bleeding') || lowerMsg.includes('chest') || lowerMsg.includes('urgent')) response = demoResponses.emergency
-
-  res.status(200).json({
-    success: true,
-    data: {
-      response,
-      flags: lowerMsg.includes('urgent') ? ['HIGH_PRIORITY'] : [],
-      confidence: 0.8,
-    },
-  })
 }
-

@@ -59,9 +59,9 @@ export const signup = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body
+    const { email } = req.body
 
-// Always use mock mode for dev (ignore DB)
+    // Always use mock mode for dev (ignore DB)
     const mockUserId = `demo_user_${Date.now()}`
     const token = generateToken(mockUserId)
     return res.json({

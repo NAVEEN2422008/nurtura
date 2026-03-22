@@ -1,107 +1,161 @@
 import React from 'react'
 import Head from 'next/head'
+import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Home() {
+  const tApp = useTranslations('app')
+  const tLanding = useTranslations('landing')
+  const tAuth = useTranslations('auth')
+
+  const safetySteps = [
+    {
+      step: '01',
+      title: tLanding('structuredInput'),
+      body: tLanding('featuresDetails.0') || 'Pick symptoms, severity, and duration to avoid ambiguity.',
+    },
+    {
+      step: '02',
+      title: tLanding('deterministicRiskRules'),
+      body: tLanding('featuresDetails.1') || 'Clear green/yellow/red outcomes with next steps.',
+    },
+    {
+      step: '03',
+      title: tLanding('features.aiDoulaSupport'),
+      body: tLanding('featuresDetails.2') || 'Empathy + explanation + action, always with disclaimer.',
+    },
+  ]
+
+  const featureGridData = [
+    {
+      icon: '🧑‍⚕️',
+      title: tLanding('features.careBetweenVisits'),
+      body: tLanding('featuresDetails.3') || 'Capture symptoms quickly and keep a safe timeline for your provider.',
+    },
+    {
+      icon: '🩺',
+      title: tLanding('features.guidedSymptomChecks'),
+      body: tLanding('featuresDetails.4') || 'No free text. Structured, consistent, and clinically responsible.',
+    },
+    {
+      icon: '💬',
+      title: tLanding('features.aiDoulaSupport'),
+      body: tLanding('featuresDetails.5') || 'Empathy + explanation + action, always with a medical disclaimer.',
+    },
+    {
+      icon: '📡',
+      title: tLanding('features.worksOffline'),
+      body: tLanding('featuresDetails.6') || 'Low-connectivity fallback uses local safety rules.',
+    },
+    {
+      icon: '🌍',
+      title: tLanding('features.multilingual'),
+      body: tLanding('featuresDetails.7') || 'English, Hindi, and Tamil with safe templates.',
+    },
+    {
+      icon: '🚨',
+      title: tLanding('features.emergencyReady'),
+      body: tLanding('featuresDetails.8') || 'High-risk flows surface emergency actions instantly.',
+    },
+  ]
+
   return (
     <>
       <Head>
-        <title>NURTURA – AI Maternal Care</title>
+        <title>{tApp('pages.landing')}</title>
         <meta name="description" content="AI Companion for Safer Pregnancy & Postpartum Care" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-br from-soft-lavender via-white to-soft-mint">
+      <main className="min-h-screen nurtura-bg">
         {/* Navigation */}
-        <nav className="bg-white shadow-sm">
+        <nav className="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-white/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-primary">NURTURA</h1>
-            <div className="space-x-4">
-              <Link href="/login" className="text-gray-600 hover:text-primary">Login</Link>
-              <Link href="/signup" className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-opacity-90">Sign Up</Link>
+            <h1 className="text-2xl font-display text-primary tracking-tight">{tApp('title')}</h1>
+            <div className="flex items-center gap-3">
+              <Link href="/login" className="btn-ghost">{tAuth('signIn')}</Link>
+              <Link href="/signup" className="btn-primary">{tAuth('signUp')}</Link>
             </div>
           </div>
         </nav>
 
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">
-              AI Companion for Safer Pregnancy &amp; Postpartum Care
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              A calm, supportive space to track symptoms, understand risk signals, and feel emotionally held between doctor visits.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link
-                href="/signup"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-primary text-white font-semibold hover:shadow-elevated transition-all"
-              >
-                Start Free
-              </Link>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-white border border-gray-200 text-gray-900 font-semibold hover:bg-gray-50 transition-all"
-              >
-                Try Demo
-              </Link>
-            </div>
-            <p className="text-xs text-gray-500 mt-4 max-w-2xl mx-auto">
-              Medical disclaimer: NURTURA provides informational support and is not a substitute for professional medical advice, diagnosis, or treatment.
-            </p>
-          </motion.div>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-xs uppercase tracking-[0.28em] text-primary/70 font-semibold">
+                {tLanding('decisionSupportTagline') || 'Decision Support, Not Diagnosis'}
+              </p>
+              <h2 className="mt-4 text-4xl lg:text-5xl font-display text-slate-900 leading-tight">
+                {tLanding('heroTitle')}
+              </h2>
+              <p className="mt-4 text-lg text-slate-600 max-w-xl">
+                {tLanding('heroSubtitle')}
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Link href="/signup" className="btn-primary">
+                  {tLanding('startFree')}
+                </Link>
+                <Link href="/dashboard" className="btn-secondary">
+                  {tLanding('exploreDemo')}
+                </Link>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                <span className="chip">{tLanding('features.multilingual')}</span>
+                <span className="chip">{tLanding('features.voiceEnabled') || 'Voice-enabled'}</span>
+                <span className="chip">{tLanding('features.lowConnectivity') || 'Low-connectivity safe'}</span>
+                <span className="chip">{tLanding('features.emergencyReady')}</span>
+              </div>
+              <p className="text-xs text-slate-500 mt-5 max-w-xl">
+                {tLanding('medicalDisclaimer') || 'Medical disclaimer: NURTURA provides informational support and is not a substitute for professional medical advice, diagnosis, or treatment.'}
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="card-surface p-8"
+            >
+              <h3 className="text-2xl font-display text-slate-900 mb-6">{tLanding('howNurturaKeepsYouSafe')}</h3>
+              <ol className="space-y-4">
+                {safetySteps.map((item) => (
+                  <li key={item.step} className="flex gap-4">
+                    <div className="text-sm font-bold text-primary/80">{item.step}</div>
+                    <div>
+                      <p className="font-semibold text-slate-900">{item.title}</p>
+                      <p className="text-sm text-slate-600">{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-6 surface-muted p-4">
+                <p className="text-xs text-slate-600">
+                  {tLanding('decisionSupportNotDiagnosis')}
+                </p>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Feature Grid */}
-          <div className="grid md:grid-cols-3 gap-6 mt-20">
-            {[
-              {
-                icon: '🧑‍⚕️',
-                title: 'Maternal healthcare challenges',
-                body: 'Between visits, questions and symptoms can feel urgent. NURTURA helps you log, organize, and know when to escalate.',
-              },
-              {
-                icon: '💬',
-                title: 'AI maternal companion',
-                body: 'Ask pregnancy and postpartum questions anytime, get calm explanations and emotional reassurance (with clear disclaimers).',
-              },
-              {
-                icon: '🩺',
-                title: 'Symptom monitoring system',
-                body: 'Track headache, swelling, dizziness, nausea, bleeding, fatigue, anxiety—with severity, timestamp, and notes.',
-              },
-              {
-                icon: '📈',
-                title: 'Predictive risk detection',
-                body: 'Rule-based triage highlights green/yellow/red risk signals and suggests next steps using guideline-inspired logic.',
-              },
-              {
-                icon: '👩‍👩‍👧‍👧',
-                title: 'Community support for mothers',
-                body: 'Join trimester/postpartum groups, share experiences anonymously, and get AI moderation to reduce misinformation.',
-              },
-              {
-                icon: '⌚',
-                title: 'Wearable + postpartum support',
-                body: 'Bring in sleep/stress/activity signals (Apple/Fitbit/Oura) and switch to postpartum mode for recovery support.',
-              },
-            ].map((f) => (
+          <div className="grid md:grid-cols-3 gap-6 mt-16">
+            {featureGridData.map((f, index) => (
               <motion.div
                 key={f.title}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white rounded-rounded shadow-card p-6"
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="card-surface p-6"
               >
                 <div className="text-3xl mb-3">{f.icon}</div>
-                <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
-                <p className="text-gray-600">{f.body}</p>
+                <h3 className="font-semibold text-lg mb-2 text-slate-900">{f.title}</h3>
+                <p className="text-slate-600">{f.body}</p>
               </motion.div>
             ))}
           </div>
@@ -110,3 +164,4 @@ export default function Home() {
     </>
   )
 }
+

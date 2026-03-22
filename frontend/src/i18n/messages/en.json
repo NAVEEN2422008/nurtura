@@ -1,0 +1,587 @@
+{
+  "app": {
+    "title": "NURTURA",
+    "subtitle": "Your Calm Care Companion",
+    "pages": {
+      "landing": "Welcome to NURTURA",
+      "home": "Home",
+      "symptomCheck": "Symptom Checker",
+      "aiChat": "AI Assistant",
+      "emergency": "Emergency"
+    },
+    "nav": {
+      "home": "Home",
+      "symptomCheck": "Symptoms",
+      "aiAssistant": "Assistant",
+      "emergency": "Emergency"
+    }
+  },
+  "landing": {
+    "decisionSupportTagline": "Decision Support, Not Diagnosis",
+    "heroTitle": "Calm, Guided Care for Your Pregnancy",
+    "heroSubtitle": "NURTURA helps you understand your symptoms, monitor your health, and stay connected to your care team. Safe, private, and always available.",
+    "structuredInput": "Structured Symptom Tracking",
+    "deterministicRiskRules": "Clear, Transparent Guidance",
+    "features": {
+      "careBetweenVisits": "Care Between Visits",
+      "guidedSymptomChecks": "Guided Symptom Checks",
+      "aiDoulaSupport": "AI Companion Support",
+      "worksOffline": "Works Offline",
+      "multilingual": "Multilingual",
+      "emergencyReady": "Emergency Ready"
+    },
+    "featuresDetails": [
+      "Pick symptoms, severity, and duration to avoid ambiguity.",
+      "Clear green/yellow/red outcomes with next steps.",
+      "Empathy + explanation + action, always with disclaimer.",
+      "Capture symptoms quickly and keep a safe timeline for your provider.",
+      "No free text. Structured, consistent, and clinically responsible.",
+      "Empathy + explanation + action, always with a medical disclaimer.",
+      "Low-connectivity fallback uses local safety rules.",
+      "English, Hindi, and Tamil with safe templates.",
+      "High-risk flows surface emergency actions instantly."
+    ]
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "login": "Login",
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to continue your pregnancy journey",
+    "signUpTitle": "Create Your Account",
+    "signUpSubtitle": "Join NURTURA to start your safe pregnancy companion",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signInButton": "Sign In",
+    "signUpButton": "Create Account",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "invalidCredentials": "Invalid email or password",
+    "passwordMismatch": "Passwords do not match",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required (min 8 characters)"
+  },
+  "dashboard": {
+    "title": "Your Care Dashboard",
+    "greeting": "Hello, {name}! 👋",
+    "greetingSubtitle": "You're doing well. Here's your care overview.",
+    "pregnancyProgress": "Pregnancy Progress",
+    "week": "Week {week}",
+    "trimester": "Trimester {trimester}",
+    "daysSinceLMP": "{days} days since last period",
+    "daysUntilDue": "{days} days until due date",
+    "statusCard": "You're doing well today",
+    "statusSubtitle": "Continue with regular check-ups",
+    "quickActions": "Quick Actions",
+    "checkSymptoms": "Check Symptoms",
+    "talkToAssistant": "Talk to Assistant",
+    "emergencyHelp": "Emergency Help",
+    "dailyTip": "💡 Daily Tip",
+    "recentActivity": "Recent Activity",
+    "noSymptoms": "No recent symptoms logged",
+    "loadError": "We could not load your care overview. Please try again.",
+    "logout": "Logout"
+  },
+  "symptomChecker": {
+    "title": "Symptom Checker",
+    "subtitle": "Let's understand what you're experiencing",
+    "step1": "Step 1: What are you experiencing?",
+    "step1Subtitle": "Select all symptoms that apply",
+    "step2": "Step 2: How severe is each symptom?",
+    "step2Subtitle": "Help us understand the impact",
+    "step3": "Step 3: How long have you had these symptoms?",
+    "step3Subtitle": "Timeline helps us understand context",
+    "step4": "Step 4: Review & Confirm",
+    "step4Subtitle": "Make sure everything looks right",
+    "availableSymptoms": "Available Symptoms",
+    "selectedSymptoms": "Selected Symptoms ({count})",
+    "severity": "Severity",
+    "duration": "How long?",
+    "additionalNotes": "Additional notes (optional)",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Get Risk Assessment",
+    "submitting": "Analyzing...",
+    "symptoms": {
+      "headache": "Headache",
+      "swelling": "Swelling (hands, feet, face)",
+      "dizziness": "Dizziness or lightheadedness",
+      "nausea": "Nausea or vomiting",
+      "bleeding": "Vaginal bleeding or spotting",
+      "fatigue": "Extreme fatigue",
+      "anxiety": "Anxiety or panic",
+      "blurred_vision": "Blurred vision",
+      "chest_pain": "Chest pain or pressure",
+      "shortness_breath": "Shortness of breath"
+    },
+    "durations": {
+      "less_1h": "Less than 1 hour",
+      "1_3h": "1-3 hours",
+      "3_24h": "3-24 hours",
+      "1_3d": "1-3 days",
+      "more_3d": "More than 3 days"
+    }
+  },
+  "result": {
+    "resultTitle": "Your Risk Assessment",
+    "resultSubtitle": "Here's what we found",
+    "greenTitle": "You're Looking Good",
+    "greenDescription": "Your symptoms suggest low risk. Continue with regular prenatal care.",
+    "yellowTitle": "Monitor Carefully",
+    "yellowDescription": "We recommend consulting your provider soon for personalized guidance.",
+    "redTitle": "Seek Immediate Care",
+    "redDescription": "Some symptoms suggest urgent medical attention is needed.",
+    "whatThisMeans": "What This Means",
+    "nextSteps": "Next Steps",
+    "disclaimer": "⚠️ Important: This is decision support only, not a medical diagnosis. Always consult your healthcare provider for personalized advice.",
+    "callDoctor": "📞 Call Your Provider",
+    "scheduleAppointment": "📅 Schedule Appointment",
+    "goHome": "← Go Home",
+    "shareWithProvider": "📤 Share with Provider"
+  },
+  "emergency": {
+    "title": "🚨 Emergency",
+    "subtitle": "We're here to help",
+    "warningTitle": "If you're experiencing a medical emergency",
+    "warningSubtitle": "Seek immediate medical attention",
+    "emergencySymptoms": "🚨 Emergency Symptoms",
+    "callAmbulance": "📞 Call Ambulance",
+    "callDoctor": "📞 Call Your Doctor",
+    "goToHospital": "🏥 Go to Nearest Hospital",
+    "shareLocation": "📍 Share My Location",
+    "contacts": "Emergency Contacts",
+    "symptoms": [
+      "Severe vaginal bleeding",
+      "Severe chest pain",
+      "Severe headache with blurred vision",
+      "Loss of consciousness",
+      "Severe abdominal pain",
+      "Sudden gush of fluid",
+      "Signs of labor before 37 weeks with severe pain"
+    ]
+  },
+  "chat": {
+    "title": "Chat with Your Care Companion",
+    "subtitle": "Ask questions anytime",
+    "placeholder": "Type your question or tap the mic...",
+    "send": "Send",
+    "speaking": "Speaking...",
+    "listening": "Listening...",
+    "microphoneAccess": "Please allow microphone access",
+    "startChat": "Hello! I'm here to help. What can I assist you with today?",
+    "empathy": "I hear you, and I'm here to help.",
+    "disclaimer": "⚠️ This is decision support only. Always consult your healthcare provider.",
+    "fallback": "Please consult your healthcare provider for personalized advice.",
+    "typingIndicator": "NURTURA is thinking..."
+  },
+  "common": {
+    "decisionSupportDisclaimer": "⚠️ Decision Support Only: Not a medical diagnosis. Always consult your healthcare provider.",
+    "offlineChat": "You're offline. Please connect to the internet for AI assistance.",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "tryAgain": "Try Again",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "done": "Done",
+    "back": "Back",
+    "continue": "Continue",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "(optional)"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "password": "Password must be at least 8 characters",
+    "passwordMatch": "Passwords do not match",
+    "selectSymptom": "Please select at least one symptom",
+    "selectSeverity": "Please select severity for all symptoms"
+  }
+}
+    "tipYouAreNotAlone": "You are not alone. We are here to help.",
+    "riskStatus": "Today's status",
+    "languagePreference": "Language preference",
+    "updateLanguage": "Update language",
+    "needUrgentHelp": "Need urgent help?",
+    "emergencyAssistance": "Emergency assistance",
+    "riskMeta": {
+      "green": {
+        "label": "Doing well",
+        "tone": "green",
+        "title": "You are doing well today",
+        "body": "Keep tracking how you feel. We are here when you need extra support."
+      },
+      "yellow": {
+        "label": "Monitor",
+        "tone": "yellow",
+        "title": "Take a calm check-in",
+        "body": "Monitor symptoms and re-check later today. Reach out if anything worsens."
+      },
+      "red": {
+        "label": "High attention",
+        "tone": "red",
+        "title": "We are here with you",
+        "body": "Your recent signals suggest urgent attention. Please contact your provider or emergency services."
+      }
+    },
+    "quickActions": [
+      {"label": "Check Symptoms"},
+      {"label": "Talk to Assistant"},
+      {"label": "Emergency Help"}
+    ],
+    "tips": [
+      "Drink water regularly and keep small snacks nearby to avoid nausea.",
+      "Try gentle stretching or a short walk to ease tension.",
+      "Keep a simple symptom timeline to share with your provider.",
+      "Rest on your left side to support circulation.",
+      "If something feels off, reach out early—your care team is there for you."
+    ],
+    "healthySnacks": "healthy snacks",
+    "headacheSwelling": "headache and swelling"
+  },
+  "landing": {
+    "heroTitle": "Calm guidance for pregnancy, right when it matters most.",
+    "heroSubtitle": "NURTURA helps you capture symptoms, understand risk signals, and feel supported between doctor visits.",
+    "startFree": "Start Free",
+    "exploreDemo": "Explore Demo",
+    "features": {
+      "careBetweenVisits": "Care between visits",
+      "guidedSymptomChecks": "Guided symptom checks",
+      "aiDoulaSupport": "AI doula support",
+      "worksOffline": "Works offline",
+      "multilingual": "Multilingual by design",
+      "emergencyReady": "Emergency ready"
+    },
+    "howNurturaKeepsYouSafe": "How NURTURA keeps you safe",
+    "structuredInput": "Structured input only",
+    "deterministicRiskRules": "Deterministic risk rules",
+    "decisionSupportNotDiagnosis": "NURTURA never diagnoses. It supports decision-making and always recommends consulting a healthcare provider for clinical care.",
+    "featuresDetails": [
+      "Capture symptoms quickly and keep a safe timeline for your provider.",
+      "No free text. Structured, consistent, and clinically responsible.",
+      "Empathy + explanation + action, always with a medical disclaimer.",
+      "Low-connectivity fallback uses local safety rules.",
+      "English, Hindi, and Tamil with safe templates.",
+      "High-risk flows surface emergency actions instantly."
+    ]
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "joinNurtura": "Join NURTURA",
+    "yourCalmSafeAssistant": "Your calm, safe maternal assistant awaits.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "min8Chars": "Password (min 8 characters)",
+    "language": "Language",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "continueGoogle": "Continue with Google",
+    "googleSetup": "Google sign-in appears once you set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "demoAccounts": "Demo accounts (password: DemoPassword123!):",
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "loginFailed": "Login failed",
+      "signupFailed": "Signup failed",
+      "accountCreatedSigninFailed": "Account created, but sign-in failed. Please try logging in."
+    }
+  },
+  "community": {
+    "title": "Mother Community",
+    "subtitle": "A supportive, moderated space for shared experiences.",
+    "firstTrimester": "First Trimester",
+    "secondTrimester": "Second Trimester",
+    "thirdTrimester": "Third Trimester",
+    "postpartum": "Postpartum",
+    "groups": {
+      "firstTrimester": "First Trimester",
+      "secondTrimester": "Second Trimester",
+      "thirdTrimester": "Third Trimester",
+      "postpartum": "Postpartum"
+    },
+    "postTo": "Post to",
+    "titleOptional": "Title (optional)",
+    "shareExperience": "Share your experience, question, or support message…",
+    "postAnonymously": "Post anonymously",
+    "post": "Post",
+    "posting": "Posting…",
+    "moderationNote": "Posts may be moderated to reduce misinformation. If you have urgent symptoms, contact a clinician or emergency services.",
+    "noPosts": "No posts yet. Be the first to share.",
+    "anonymous": "Anonymous",
+    "member": "Member",
+    "loading": "Loading…",
+    "failedLoad": "Failed to load feed",
+    "failedPost": "Failed to post"
+  },
+  "setupPregnancy": {
+    "welcome": "Welcome to NURTURA",
+    "personalizeGuidance": "We will use this to personalize safe guidance. You can update it anytime.",
+    "pregnancyInfo": "Pregnancy information",
+    "lmp": "Last Menstrual Period (LMP)",
+    "lmpHelp": "Used to calculate your week and estimated due date.",
+    "riskFactors": "Risk factors (optional)",
+    "riskFactorsHelp": "Select any that apply to help us tailor guidance.",
+    "medicalHistory": "Medical history (optional)",
+    "medicalHistoryHelp": "Select any chronic conditions you have.",
+    "riskFactorsOptions": {
+      "ageUnder20": "Age under 20",
+      "ageOver35": "Age over 35",
+      "previousMiscarriage": "Previous miscarriage",
+      "previousPreeclampsia": "Previous preeclampsia",
+      "multiplePregnancy": "Multiple pregnancy (twins/triplets)",
+      "obesity": "BMI > 30 (Obesity)"
+    },
+    "chronicConditionsOptions": {
+      "diabetes": "Diabetes",
+      "hypertension": "Hypertension",
+      "asthma": "Asthma",
+      "anemia": "Anemia",
+      "thyroidDisease": "Thyroid disease",
+      "heartDisease": "Heart disease"
+    },
+    "settingUp": "Setting up your pregnancy...",
+    "continueToHome": "Continue to Home",
+    "lmpRequired": "Last Menstrual Period date is required"
+  },
+  "common": {
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "back": "Back",
+    "close": "Close",
+    "send": "Send",
+    "dashboard": "Dashboard",
+    "setUpPregnancy": "Set Up Pregnancy",
+    "disclaimerLabel": "Disclaimer:",
+    "decisionSupportDisclaimer": "This is decision support, not medical diagnosis. Always consult your healthcare provider.",
+    "lowConnectivity": "Low connectivity detected. If needed, Nurtura will use on-device safety rules.",
+    "tryAgain": "Try again or contact your doctor.",
+    "offlineChat": "You're offline. Chat responses need an internet connection. Please try again when you're online.",
+    "chatError": "Sorry, something went wrong. Please try again or consult your doctor."
+  },
+  "symptomChecker": {
+    "setupPrompt": "Please set up your pregnancy profile first.",
+    "weekTrimester": "Week {week}, Trimester {trimester}",
+    "stepSelect": "1. Select Symptoms",
+    "tapSymptoms": "Tap symptoms you're experiencing. Add severity and duration.",
+    "selected": "Selected ({count})",
+    "days": "Days",
+    "details": "Details",
+    "reviewCheckRisk": "Review & Check Risk ({count})",
+    "stepConfirm": "2. Confirm Symptoms",
+    "analyzing": "Analyzing...",
+    "daysCount": "({count} days)",
+    "riskScore": "Risk Score: {score}/100",
+    "possibleSignals": "Possible Signals Detected",
+    "newAssessment": "New Assessment"
+  },
+  "chat": {
+    "setupPrompt": "Please set up your pregnancy profile first.",
+    "welcomeTitle": "Hi! I'm your AI Doula",
+    "inputPlaceholder": "Type your message...",
+    "tagEmpathy": "Empathy ❤️",
+    "tagAction": "Action",
+    "tagFallback": "Fallback - Consult Doctor",
+
+    "ttsOn": "Voice On",
+    "ttsOff": "Voice Off",
+    "listening": "Listening...",
+    "transcriptLabel": "Transcript",
+    "confidenceLabel": "{value}% confidence",
+    "startListening": "Start voice input",
+    "stopListening": "Stop listening"
+  },
+  "emergency": {
+    "title": "Emergency Alert",
+    "riskScore": "Risk Score: {score}",
+    "highRisk": "High Risk Detected",
+    "immediateActionsTitle": "Immediate Actions:",
+    "immediateActions": [
+      "Stop all activity and rest",
+      "Call your doctor or midwife immediately",
+      "Prepare to go to hospital if instructed",
+      "Have someone with you"
+    ],
+    "whyTriggered": "Why this alert triggered:",
+    "breathingTitle": "Stay Calm - Breathing Exercise",
+    "breathe": "Breathe",
+    "breathingPattern": "4 seconds in → 4 seconds hold → 4 seconds out",
+    "breathingRepeat": "Repeat 5 times",
+    "nearestHospitals": "Nearest Maternity Hospitals:",
+    "callHospital": "Call {phone}",
+    "callEmergency": "Call Emergency ({number})",
+    "shareLocation": "Share Location",
+    "locationUnavailable": "Location not available. Please call emergency services.",
+    "shareTitle": "Share my location",
+    "shareText": "Please help me. Here is my location.",
+    "shareSuccess": "Location shared.",
+    "shareCopied": "Location link copied.",
+    "shareFailed": "Unable to share location right now."
+  },
+  "riskActions": {
+    "GREEN": [
+      "Keep tracking symptoms.",
+      "Rest, hydrate, and follow your care plan."
+    ],
+    "YELLOW": [
+      "Monitor symptoms and re-check in 2–4 hours.",
+      "Contact your provider if symptoms persist or worsen.",
+      "Log any new symptoms or BP readings."
+    ],
+    "RED": [
+      "Seek medical attention now (call emergency services if needed).",
+      "Do not drive yourself if you feel unwell—ask someone to accompany you.",
+      "Bring your symptom timeline and any BP readings."
+    ]
+  },
+  "riskSignals": {
+    "headache": {
+      "title": "Headache",
+      "recommendation": "Rest in a quiet, dark room. Stay hydrated. Contact provider if persistent or with vision changes."
+    },
+    "swelling": {
+      "title": "Swelling",
+      "recommendation": "Elevate feet, reduce salt. Monitor BP if possible. Call provider if sudden or severe."
+    },
+    "dizziness": {
+      "title": "Dizziness",
+      "recommendation": "Sit/lie down immediately. Hydrate. Seek help if fainting or chest pain."
+    },
+    "bleeding": {
+      "title": "Bleeding",
+      "recommendation": "Call emergency services immediately. Lie on left side."
+    },
+    "chest_pain": {
+      "title": "Chest Pain",
+      "recommendation": "Call emergency services now. Stay calm."
+    },
+    "shortness_breath": {
+      "title": "Shortness of Breath",
+      "recommendation": "Sit upright, loosen clothing. Call emergency if worsening."
+    },
+    "blurred_vision": {
+      "title": "Blurred Vision",
+      "recommendation": "Emergency - possible preeclampsia. Call provider now."
+    },
+    "hypertension_preeclampsia_risk": {
+      "title": "Hypertension risk",
+      "recommendation": "Recheck blood pressure and contact your provider if it stays at or above 140/90."
+    },
+    "preeclampsia_possible": {
+      "title": "Possible preeclampsia pattern",
+      "recommendation": "Headache with swelling (and high BP if present) can be serious after 20 weeks. Seek same-day clinical advice."
+    },
+    "chronic_hypertension": {
+      "title": "Chronic hypertension history",
+      "recommendation": "Keep regular prenatal visits and discuss blood pressure targets."
+    },
+    "gestational_diabetes_risk": {
+      "title": "Possible gestational diabetes risk",
+      "recommendation": "Ask about glucose screening and diet guidance."
+    },
+    "recurrent_preeclampsia_risk": {
+      "title": "Higher preeclampsia risk history",
+      "recommendation": "Because of your history, closer monitoring may be needed."
+    },
+    "gestational_hypertension_possible": {
+      "title": "Possible gestational hypertension",
+      "recommendation": "Monitor symptoms and contact your provider if they persist or worsen."
+    },
+    "anemia_possible": {
+      "title": "Possible anemia pattern",
+      "recommendation": "Rest, hydrate, and discuss iron screening with your provider."
+    },
+    "emergency": {
+      "title": "Emergency",
+      "recommendation": "Seek immediate medical attention now. Call emergency services or go to the nearest hospital."
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "symptoms": "Symptoms",
+    "chat": "Chat",
+    "emergency": "Emergency",
+    "community": "Community",
+    "profile": "Profile",
+    "settings": "Settings",
+    "language": "Language",
+    "logout": "Logout",
+    "signOut": "Sign Out",
+    "back": "Back",
+    "close": "Close",
+    "menu": "Menu"
+  },
+  "buttons": {
+    "getStarted": "Get Started",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "create": "Create",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "done": "Done",
+    "next": "Next",
+    "previous": "Previous",
+    "send": "Send",
+    "skip": "Skip",
+    "continueButton": "Continue",
+    "tryAgain": "Try Again",
+    "contactDoctor": "Contact Doctor"
+  },
+  "form": {
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "daysPlaceholder": "Days",
+    "detailsPlaceholder": "Details",
+    "placeholderTypeMessage": "Type your message...",
+    "enterYourMessage": "Enter your message",
+    "optional": "(optional)",
+    "required": "(required)"
+  },
+  "messages": {
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "saving": "Saving...",
+    "loading": "Loading...",
+    "analyzing": "Analyzing...",
+    "processing": "Processing...",
+    "lowConnectivity": "Low connectivity detected. Using on-device safety rules.",
+    "offline": "You are offline. Some features will be unavailable.",
+    "noData": "No data available",
+    "empty": "No items yet",
+    "seeMore": "See More",
+    "seeLess": "See Less"
+  },
+  "errors": {
+    "generalError": "Something went wrong. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "loginRequired": "You must log in to access this page.",
+    "pageNotFound": "Page not found"
+  },
+  "languages": {
+    "english": "English",
+    "hindi": "हिन्दी",
+    "tamil": "தமிழ்"
+  }
+}
+}

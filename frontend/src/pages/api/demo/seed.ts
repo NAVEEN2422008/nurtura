@@ -116,6 +116,7 @@ const DEMOS: DemoAccountSpec[] = [
 ]
 
 async function upsertUser(supabase: ReturnType<typeof getSupabaseAdmin>, email: string, name: string) {
+  if (!supabase) throw new Error('Supabase not available')
   const { data: existing, error: findErr } = await supabase.from('users').select('id,email,password_hash').eq('email', email).maybeSingle()
   if (findErr) throw new Error(findErr.message)
 
@@ -147,6 +148,7 @@ async function createPregnancy(
   medicalHistory: string[],
   riskFactors: string[]
 ) {
+  if (!supabase) throw new Error('Supabase not available')
   const lmp = new Date()
   lmp.setDate(lmp.getDate() - 7 * week)
   const edd = new Date(lmp.getTime())
@@ -173,19 +175,11 @@ async function createPregnancy(
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).json({ success: false, error: 'Method not allowed' })
 
-  let supabase: ReturnType<typeof getSupabaseAdmin>
-  try {
-    supabase = getSupabaseAdmin()
-  } catch (e: any) {
-    // #region agent log
-    fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H7',location:'src/pages/api/demo/seed.ts:handler',message:'Demo seed failed: missing supabase env',data:{error:String(e?.message||e)},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion agent log
+  const supabase = getSupabaseAdmin()
+  if (!supabase) {
     return res.status(500).json({ success: false, error: 'Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in frontend/.env.local' })
   }
 
-  // #region agent log
-  fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H7',location:'src/pages/api/demo/seed.ts:handler',message:'Demo seed start (2 accounts)',data:{hasSupabaseEnv:!!process.env.SUPABASE_URL&&!!process.env.SUPABASE_SERVICE_ROLE_KEY,hasEncryptionKey:!!process.env.NURTURA_ENCRYPTION_KEY_B64,count:DEMOS.length},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion agent log
 
   try {
     const now = Date.now()
@@ -230,9 +224,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       results.push({ email: demo.email, password: DEMO_PASSWORD, createdUser: created })
     }
 
-    // #region agent log
-    fetch('http://127.0.0.1:7914/ingest/d6a77df9-41ef-4127-b13c-7e9a9f24285b',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e65389'},body:JSON.stringify({sessionId:'e65389',runId:'run1',hypothesisId:'H7',location:'src/pages/api/demo/seed.ts:handler',message:'Demo seed success (2 accounts)',data:{seeded:results.map(r=>({email:r.email,createdUser:r.createdUser}))},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion agent log
 
     return res.status(200).json({
       success: true,
@@ -246,4 +237,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ success: false, error: e?.message || 'Failed to seed demo data' })
   }
 }
-

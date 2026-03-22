@@ -17,6 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!parsed.success) return res.status(400).json({ success: false, error: 'Invalid query' })
 
   const supabase = getSupabaseAdmin()
+  if (!supabase) {
+    return res.status(200).json({ success: true, data: [] })
+  }
   const { group, limit } = parsed.data
 
   let q = supabase

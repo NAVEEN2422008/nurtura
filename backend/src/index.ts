@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction } from 'express'
+import express, { Express, Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
@@ -69,7 +69,7 @@ app.use((req: Request, res: Response) => {
 app.use(errorHandler)
 
 // Start server
-const PORT = process.env.PORT || 3002
+const PORT = process.env.PORT || 4000
 connectDB()
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running on http://localhost:${PORT}`)

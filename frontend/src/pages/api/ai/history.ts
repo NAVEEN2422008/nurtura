@@ -1,40 +1,36 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log('📜 AI History API called:', req.query)
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'
 
-  // Demo chat history for dev
-  const demoHistory = [
-    {
-      id: '1',
-      role: 'user',
-      content: 'How is my baby doing at 28 weeks?',
-      timestamp: '2024-07-10T10:00:00Z',
-    },
-    {
-      id: '2',
-      role: 'assistant',
-      content: 'At 28 weeks, your baby is about the size of an eggplant (14 inches, 2.2 lbs). Baby can now blink, turn head side to side, and has fat deposits forming for temperature regulation. You may notice Braxton Hicks contractions.',
-      timestamp: '2024-07-10T10:01:30Z',
-    },
-    {
-      id: '3',
-      role: 'user',
-      content: 'What should I watch for?',
-      timestamp: '2024-07-10T10:02:00Z',
-    },
-    {
-      id: '4',
-      role: 'assistant',
-      content: 'Watch for decreased fetal movement, severe headache, vision changes, sudden swelling, or upper abdominal pain. These could indicate preeclampsia. Normal: fatigue, Braxton Hicks (irregular). Call doctor if concerned.',
-      timestamp: '2024-07-10T10:02:45Z',
-    },
-  ]
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log('📜 AI History proxy:', req.query);
 
-  res.status(200).json({
-    success: true,
-    data: demoHistory,
-    total: demoHistory.length,
-  })
+  if (req.method !== 'GET') {
+    return res.status(405).json({ success: false, error: 'Method not allowed' });
+  }
+
+  const pregnancyId = (req.query.pregnancyId as string) || '';
+  const limit = Number(req.query.limit) || 50;
+  const offset = Number(req.query.offset) || 0;
+
+  try {
+    const backendRes = await fetch(`${BACKEND_URL}/api/chat/history/${encodeURIComponent(pregnancyId || '')}${limit ? `?limit=${limit}` : ''}${offset ? `&offset=${offset}` : ''}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!backendRes.ok) {
+      const errorData = await backendRes.json();
+      return res.status(backendRes.status).json({ success: false, error: errorData.error || 'Backend error' });
+    }
+
+    const data = await backendRes.json();
+    console.log('📜 AI History response:', data.data?.messages?.length || 0, 'messages');
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('History proxy error:', error);
+    res.status(500).json({ success: false, error: 'Internal server error' });
+  }
 }
-

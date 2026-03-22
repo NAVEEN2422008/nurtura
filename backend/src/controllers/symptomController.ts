@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { SymptomLog } from '@/models/SymptomLog'
 import { triggerRiskAssessment } from '@/controllers/healthController'
-import { authenticate } from '@/middleware/auth'
 
 export const logSymptoms = async (req: Request, res: Response) => {
   try {
@@ -18,30 +17,25 @@ export const logSymptoms = async (req: Request, res: Response) => {
       symptoms
     })
 
-    // Auto-trigger risk assessment for severe symptoms
-  // Check for emergency symptoms
-  const emergencySymptoms = ['bleeding', 'chest_pain', 'shortness_breath']
-  const isEmergency = symptoms.some(s => emergencySymptoms.includes(s.name) && s.severity === 'severe')
-  
-  // Trigger risk assessment
-  await triggerRiskAssessment({ body: { pregnancyId } } as any, { json: () => {} } as any)
-
-  res.json({
-    success: true,
-    data: {
-      symptomLogId: symptomLog._id,
-      symptoms: symptomLog.symptoms,
-      riskTriggered: true,
-      isEmergency
-    }
-  })
+    // Check for emergency symptoms
+    const emergencySymptoms = ['bleeding', 'chest_pain', 'shortness_breath']
+    const severeSymptoms = symptoms.some(s => emergencySymptoms.includes(s.name) && s.severity === 'severe')
+    
+    // Trigger risk assessment
+    const mockReq = { body: { pregnancyId } } as unknown as Request
+    const mockRes = {
+      status: () => mockRes as Response,
+      json: () => mockRes as Response,
+    } as unknown as Response
+    await triggerRiskAssessment(mockReq, mockRes)
 
     res.json({
       success: true,
       data: {
         symptomLogId: symptomLog._id,
         symptoms: symptomLog.symptoms,
-        riskTriggered: severeSymptoms
+        riskTriggered: true,
+        isEmergency: severeSymptoms
       }
     })
   } catch (error) {

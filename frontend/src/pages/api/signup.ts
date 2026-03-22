@@ -18,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const { name, email, password, language } = parsed.data
   const supabase = getSupabaseAdmin()
+  if (!supabase) return res.status(500).json({ success: false, error: 'Service unavailable' })
 
   const passwordHash = await bcrypt.hash(password, 12)
 
@@ -36,4 +37,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   return res.status(200).json({ success: true })
 }
-
